@@ -9,4 +9,5 @@ public class SpringActivemqExampleProducerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringActivemqExampleProducerApplication.class, args);
 	}
+
 }

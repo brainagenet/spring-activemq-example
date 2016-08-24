@@ -12,6 +12,7 @@
   * [How to configure embedded ActiveMQ Broker URL with Spring Boot](http://stackoverflow.com/questions/38750843/how-to-configure-embedded-activemq-broker-url-with-spring-boot)
   * [Spring Boot - 32. Messaging](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-messaging.html)
   * [Testing improvements in Spring Boot 1.4](https://spring.io/blog/2016/04/15/testing-improvements-in-spring-boot-1-4)
+  * [Spring JMS, Message Automatic Conversion, JMS Template](https://dzone.com/articles/spring-jms-message-automatic)
 
 ### Event 기반
 
