@@ -50,6 +50,8 @@ INFO: pidfile created : '/cygdrive/d/poc/mq/apache-activemq-5.14.0/data/activemq
 
 Standalone로 구동하면 내장된 Web Console(`http://localhost:8161/admin/` with credentials `admin/admin`)을 통해 상태를 확인할 수 있습니다.
 
+![activemq-web-console.png](/files/213)
+
 
 ## 참고문서
 
