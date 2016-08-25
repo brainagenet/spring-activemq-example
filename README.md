@@ -48,11 +48,73 @@ INFO: pidfile created : '/cygdrive/d/poc/mq/apache-activemq-5.14.0/data/activemq
 
 ```
 
+### Monitoring 하기
+ 
+#### 내장 Web Console 사용하기
+
 Standalone로 구동하면 내장된 Web Console(`http://localhost:8161/admin/` with credentials `admin/admin`)을 통해 상태를 확인할 수 있습니다.
 
 ![activemq-web-console.png](/files/213)
 
+#### hawtio 사용하기
 
+> 참고문서
+> * [Running Apache ActiveMQ and hawtio in Standalone Mode](http://www.bennet-schulz.com/2016/07/apache-activemq-and-hawtio.html)
+
+ActiveMQ의 내장 Web Console도 좋기는 하지만 제공해 주는 것 이외에 다른 정보들을 확인하기 어려운 단점이 있습니다. 개인적으로 생각하는 제일 좋은 대안은 JMXTrans + InfluxDB + Grafana 입니다만 설치나 관리의 복잡도가 올라가니 여기서는 JBoss Community의 Open Source Web Console 인 hawtio를 설치하고 사용해 보도록 하겠습니다.
+
+이미 Apache ActiveMQ는 설치했으므로 여기서는 hawtio(offline war version)만 [다운로드](http://hawt.io/getstarted/index.html) 받아서 설치하고 확인해 보도록 하겠습니다.
+
+```bash
+# -- 다운로드
+$ cd /d/poc/mq/src
+$ wget https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-default-offline/1.4.65/hawtio-default-offline-1.4.65.war
+
+# -- 압축 해제
+$ unzip hawtio-default-offline-1.4.65.war -d hawtio
+
+# -- ActiveMQ의 webapps 디렉토리로 이동
+$ mv -v hawtio /d/poc/mq/apache-activemq-5/webapps
+‘hawtio’ -> ‘/d/poc/mq/apache-activemq-5/webapps/hawtio’
+
+# -- jetty에서 context 등록
+$ cd /d/poc/mq/apache-activemq-5/conf
+$ vi jetty
+...
+ 61         <bean id="secHandlerCollection" class="org.eclipse.jetty.server.handler.HandlerCollection">
+ 62                 <property name="handlers">
+ 63                         <list>
+ 64                     <ref bean="rewriteHandler"/>
+ 65                                 <bean class="org.eclipse.jetty.webapp.WebAppContext">
+ 66                                         <property name="contextPath" value="/admin" />
+ 67                                         <property name="resourceBase" value="${activemq.home}/webapps/admin" />
+ 68                                         <property name="logUrlOnStart" value="true" />
+ 69                                 </bean>
+ 70                                 <bean class="org.eclipse.jetty.webapp.WebAppContext">
+ 71                                         <property name="contextPath" value="/hawtio" />
+ 72                                         <property name="resourceBase" value="${activemq.home}/webapps/hawtio" />
+ 73                                         <property name="logUrlOnStart" value="true" />
+ 74                                 </bean>
+ 75                                 <bean class="org.eclipse.jetty.webapp.WebAppContext">
+ 76                                         <property name="contextPath" value="/api" />
+ 77                                         <property name="resourceBase" value="${activemq.home}/webapps/api" />
+ 78                                         <property name="logUrlOnStart" value="true" />
+ 79                                 </bean>
+...
+## 70-74 line에 hawtio에 대해 등록
+
+# -- hawtio의 권한을 activemq의 권한을 사용하도록 하기 위해 activemq/bin/env 파일에 아래의 내용 추가
+# -- env파일에서 `ACTIVEMQ_OPTS`를 찾아서 아래의 3개의 설정을 추가한다.
+$ cd /d/poc/mq/apache-activemq-5/bin
+$ vi env
+39
+40 ACTIVEMQ_OPTS="${ACTIVEMQ_OPTS} -Dhawtio.realm=activemq"
+41 ACTIVEMQ_OPTS="${ACTIVEMQ_OPTS} -Dhawtio.role=admins"
+42 ACTIVEMQ_OPTS="${ACTIVEMQ_OPTS} -Dhawtio.rolePrincipalClasses=org.apache.activemq.jaas.GroupPrincipal"
+43 
+```
+ActiveMQ를 구동하고 `http://localhost:8161/hawtio`로 접속하면 다음과 같은 화면을 확인할 수 있다. 
+ 
 ## 참고문서
 
   * [Spring 4 MVC + JMS + ActiveMQ annotation based Example](http://websystique.com/springmvc/spring-4-mvc-jms-activemq-annotation-based-example/)
