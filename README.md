@@ -116,7 +116,13 @@ $ vi env
 ActiveMQ를 구동하고 `http://localhost:8161/hawtio`로 접속하면 다음과 같은 화면을 확인할 수 있다. 
 
 ![activemq-hawtio-web-console.png](/files/214)
- 
+
+### Networks of Borkers (Broker들의 네트워크) 구성하기
+
+ActiveMQ의 Clustering 방법 중에 하나가 바로 Networks of Brokers 입니다. 간단히 말하면 Broker 간의 연결을 통해서 Producer와 Consumer를 연결해 주는 기능이라고 생각하시면 됩니다.
+
+
+
 ## 참고문서
 
   * [Spring 4 MVC + JMS + ActiveMQ annotation based Example](http://websystique.com/springmvc/spring-4-mvc-jms-activemq-annotation-based-example/)
@@ -130,6 +136,8 @@ ActiveMQ를 구동하고 `http://localhost:8161/hawtio`로 접속하면 다음�
   * [Spring Boot - 32. Messaging](http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-messaging.html)
   * [Testing improvements in Spring Boot 1.4](https://spring.io/blog/2016/04/15/testing-improvements-in-spring-boot-1-4)
   * [Spring JMS, Message Automatic Conversion, JMS Template](https://dzone.com/articles/spring-jms-message-automatic)
+  * [ActiveMQ – Network of Brokers Explained](https://www.javacodegeeks.com/2014/04/activemq-network-of-brokers-explained.html)
+    - Network of Brokers에 대한 설명을 그림과 실제 설정 예시를 통해 설명해 주고 있다. (필독)
 
 ### Event 기반
 

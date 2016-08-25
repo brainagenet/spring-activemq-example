@@ -3,6 +3,7 @@ package net.brainage.example.message;
 import com.google.common.collect.Lists;
 import net.brainage.example.model.ExcelExportRequestMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.transport.TransportListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.io.IOException;
 
 /**
  * Created by ms29.seo on 2016-08-24.
@@ -24,14 +26,16 @@ import javax.jms.Session;
 @ContextConfiguration
 public class ExcelExportRequestMessageSenderTest {
 
+
     @Configuration
     static class TestConfig {
 
         @Bean
         public ActiveMQConnectionFactory mqConnectionFactory() {
             ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
-            factory.setBrokerURL("failover:(tcp://localhost:61616,tcp://localhost:61619)?randomize=true");
-            factory.setTrustedPackages(Lists.newArrayList("net.brainage.example"));
+            factory.setBrokerURL("failover:(tcp://localhost:61616,tcp://192.168.56.110:61616)?randomize=false");
+            factory.setTrustedPackages(Lists.newArrayList("net.brainage.example.model"));
+            factory.setTrustAllPackages(false);
             return factory;
         }
 
@@ -54,6 +58,9 @@ public class ExcelExportRequestMessageSenderTest {
 
     @Autowired
     JmsTemplate jmsTemplate;
+
+    @Autowired
+    ExcelExportRequestMessageSender excelExportRequestMessageSender;
 
     @Test
     public void test_send_excel_export_request_message() {

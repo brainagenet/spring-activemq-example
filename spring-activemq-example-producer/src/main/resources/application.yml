@@ -1,6 +1,6 @@
 spring:
   activemq:
-    broker-url: "failover:(tcp://localhost:61616,tcp://localhost:61619)?randomize=true"
+    broker-url: "failover:(tcp://localhost:61616,tcp://192.168.56.110:61616)?randomize=true"
     packages:
-      trusted: "net.brainage.example"
-      trust-all: true
+      trusted: "net.brainage.example.model"
+      trust-all: false
