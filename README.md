@@ -114,6 +114,8 @@ $ vi env
 43 
 ```
 ActiveMQ를 구동하고 `http://localhost:8161/hawtio`로 접속하면 다음과 같은 화면을 확인할 수 있다. 
+
+![activemq-hawtio-web-console.png](/files/214)
  
 ## 참고문서
 
