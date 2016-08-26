@@ -13,6 +13,6 @@ import net.brainage.example.model.ExcelExportRequestMessage;
  */
 public interface ExcelExportProcessor {
 
-    ExcelExportProcessor process(ExcelExportRequestMessage request) throws ExcelExportProcessorException;
+    void process(ExcelExportRequestMessage request) throws ExcelExportProcessorException;
 
 }

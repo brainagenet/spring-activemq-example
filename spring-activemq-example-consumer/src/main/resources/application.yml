@@ -9,5 +9,9 @@ spring:
     username: "scott"
     password: "tiger"
     hikari:
-      data-source-class-name: "oracle.jdbc.pool.OracleDataSource"
+      # data-source-class-name: "oracle.jdbc.pool.OracleDataSource"
       maximum-pool-size: 20
+      pool-name: "sample-datasource"
+logging:
+  level:
+    net.brainage.example: debug
