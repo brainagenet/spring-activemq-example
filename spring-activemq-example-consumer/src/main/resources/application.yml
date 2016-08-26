@@ -4,8 +4,6 @@ spring:
     packages:
       trusted: "net.brainage.example.model"
       trust-all: true
-    pool:
-      max-connections: 10
   datasource:
     url: "jdbc:oracle:thin:@localhost:1521:XE"
     username: "scott"
