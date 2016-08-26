@@ -26,17 +26,20 @@ public class ExcelExportRequestMessage implements Serializable {
     private final String requestType;
     private final long timestamp;
 
-    public ExcelExportRequestMessage(Long requestId, String requestType) {
+    public ExcelExportRequestMessage(Long requestId, ExcelExportRequestType requestType) {
         this.requestId = requestId;
-        this.requestType = requestType;
+        this.requestType = requestType.getValue();
         this.timestamp = System.currentTimeMillis();
     }
 
-    public ExcelExportRequestMessage(Long requestId, String requestType, long timestamp) {
+    public ExcelExportRequestMessage(Long requestId, ExcelExportRequestType requestType, long timestamp) {
         this.requestId = requestId;
-        this.requestType = requestType;
+        this.requestType = requestType.getValue();
         this.timestamp = timestamp;
     }
 
+    public ExcelExportRequestType getType() {
+        return ExcelExportRequestType.valueOf(this.requestType);
+    }
 
 }

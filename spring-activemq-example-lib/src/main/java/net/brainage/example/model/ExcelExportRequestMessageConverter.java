@@ -40,7 +40,7 @@ public class ExcelExportRequestMessageConverter implements MessageConverter {
         Long requestId = mm.getLongProperty(PROP_REQUEST_ID);
         String requestType = mm.getStringProperty(PROP_REQUEST_TYPE);
         long timestamp = mm.getLongProperty(PROP_TIMESTAMP);
-        return new ExcelExportRequestMessage(requestId, requestType, timestamp);
+        return new ExcelExportRequestMessage(requestId, ExcelExportRequestType.valueOf(requestType), timestamp);
     }
 
 }
